@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+
+  backend:
+    container_name: backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+      - ${BACKEND_PORT}:${BACKEND_PORT}
+    networks:
+      - mynetwork
+    volumes:
+      - ./backend:/app
+      - ./backend/storage:/app/storage
+      - ./backend/logs:/app/logs
+    restart: always
+    depends_on:
+      - mongodb
+    command: uvicorn app.main:app --host 0.0.0.0 --port ${BACKEND_PORT}
+
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    env_file:
+      - .env
+    ports:
+      - ${MONGODB_PORT}:${MONGODB_PORT}
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
+    networks:
+      - mynetwork
+    volumes:
+      - mongodb_data:/data/db
+      - mongodb_logs:/var/log/mongodb
+
+networks:
+  mynetwork:
+    driver: bridge
+
+volumes:
+  mongodb_data:
+  mongodb_logs:
+  backend_logs:
+  backend_storage:

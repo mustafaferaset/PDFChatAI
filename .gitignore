@@ -1,0 +1,58 @@
+.env
+venv
+backend/venv
+backend/storage
+backend/Logs
+done.md
+todos.md
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+backend/__pycache__
+
+# Virtual Environment
+.venv/
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+
+# Build output
+build/
+dist/
+*.egg-info/
+
+# Dependency directories
+node_modules/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Database files
+*.db
+*.sqlite3
+
+# Environment variables
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Cache files
+.pytest_cache
+__pycache__
