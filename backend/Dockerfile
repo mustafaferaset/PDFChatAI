@@ -14,6 +14,7 @@ RUN pip install --upgrade pip
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
 
+
 # copy project
 COPY requirements.txt .
 RUN pip install --no-cache-dir --upgrade -r requirements.txt

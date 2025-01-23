@@ -7,6 +7,7 @@ from bson import ObjectId
 from fastapi import HTTPException
 from app.core.log_config import data_logger as logger
 from bson.errors import InvalidId
+from app.core.config import settings
 
 load_dotenv()
 
@@ -51,6 +52,7 @@ def load_from_mongodb(pdf_id=None):
     except Exception as e:
         logger.error(f"Error loading PDF from MongoDB: {e}")
         raise HTTPException(status_code=500, detail=f"Error loading PDF from MongoDB: {e}")
+
 
 def update_mongodb(pdf_id, data):
     db = get_database()

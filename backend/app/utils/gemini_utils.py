@@ -11,7 +11,6 @@ from app.core.config import settings
 
 import os
 
-
 # Load environment variables
 load_dotenv()
 
@@ -122,10 +121,9 @@ def chat_with_gemini(message, extracted_text):
         raise HTTPException(status_code=500, detail=f"Unexpected error in chat_with_gemini: {error_message}")
 
 
-async def chat_with_pdf(pdf_id: str, request: Request = None): # Chat with PDF
+async def chat_with_pdf(pdf_id: str, message: str):
     logger.info(f"Chat request for PDF {pdf_id}")
     try:
-
         pdf_data = load_from_mongodb(pdf_id=pdf_id)
         
         if pdf_data is None:
@@ -133,11 +131,8 @@ async def chat_with_pdf(pdf_id: str, request: Request = None): # Chat with PDF
         
         logger.info(f"PDF data retrieved from MongoDB: {pdf_data}")
         
-        body = await request.json()
-        message = body.get("message")
-        
         if not message:
-            raise HTTPException(status_code=400, detail="Message is required in the request body")
+            raise HTTPException(status_code=400, detail="Message is required")
 
         # Check if pdf_data is a dictionary and has the 'extracted_text' key
         if not isinstance(pdf_data, dict):
